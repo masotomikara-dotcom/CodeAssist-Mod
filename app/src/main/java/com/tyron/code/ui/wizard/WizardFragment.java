@@ -639,7 +639,15 @@ public class WizardFragment extends Fragment {
 
         Executors.newSingleThreadExecutor().execute(() -> {
             List<WizardTemplate> templates = getTemplates();
-
+            
+            if (templates == null) {
+                templates = new ArrayList<>();
+            }  else {
+                templates = new ArrayList<>(templates);
+            }
+            
+            templates.add(new WizardTemplates("import_project", "Import Project", ""));
+            List<WizardTemplate> finalTemplates = templates;
             if (getActivity() != null) {
                 getActivity().runOnUiThread(() -> {
                     TransitionManager.beginDelayedTransition((ViewGroup) requireView(),
@@ -652,7 +660,12 @@ public class WizardFragment extends Fragment {
 
                     mAdapter.setOnItemClickListener((item, pos) -> {
                         mCurrentTemplate = item;
+                    if ("import_project", item.getId()) {
+                       openDirectoryPickerForImport();   
+                    }
+                    else {
                         onNavigateNext(mNavigateButton);
+                    }
                     });
                 });
             }
@@ -724,5 +737,31 @@ public class WizardFragment extends Fragment {
                 AndroidUtilities.calculateMD5(requireContext().getAssets()
                         .open("templates.zip")),
                 Charset.defaultCharset());
+    }
+        private final ActivityResultLauncher<android.net.Uri> mImportProjectLauncher = 
+        registerForActivityResult(new ActivityResultContracts.OpenDocumentTree(), uri -> {
+            if (uri != null) {
+                requireContext().getContentResolver().takePersistableUriPermission(
+                    uri, 
+                    android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION | 
+                    android.content.Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+                );
+                
+                File selectedFolder = new File(uri.getPath()); 
+                if (selectedFolder.exists() && mListener != null) {
+                    Project importedProject = new Project(selectedFolder);
+                    mListener.onProjectCreated(importedProject);
+                    getParentFragmentManager().popBackStack();
+                }
+            }
+        });
+
+    private void openDirectoryPickerForImport() {
+        try {
+            mImportProjectLauncher.launch(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            android.widget.Toast.makeText(requireContext(), "Failed to open file picker", android.widget.Toast.LENGTH_SHORT).show();
+        }
     }
 }

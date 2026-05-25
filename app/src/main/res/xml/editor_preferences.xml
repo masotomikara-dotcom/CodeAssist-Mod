@@ -2,20 +2,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-<!--    <PreferenceCategory-->
-<!--        app:iconSpaceReserved="false"-->
-<!--        android:title="@string/code_engine_title">-->
-
-<!--        <SwitchPreference-->
-<!--            android:defaultValue="false"-->
-<!--            android:iconSpaceReserved="false"-->
-<!--            android:key="experimental_kotlin_completions"-->
-<!--            app:iconSpaceReserved="false"-->
-<!--            android:title="@string/settings_kotlin_completions"-->
-<!--            android:summary="@string/settings_kotlin_completions_desc"/>-->
-<!--    </PreferenceCategory>-->
-
-    <PreferenceCategory
+<PreferenceCategory
         app:iconSpaceReserved="false"
         app:title="@string/completion_settings_java_title">
 
@@ -40,6 +27,13 @@
             app:defaultValue="false"
             app:summary="@string/settings_case_insensitive_match_desc"
             app:title="@string/settings_case_insensitive_match_title" />
+
+        <SwitchPreferenceCompat
+            android:key="rename_sync_enabled"
+            android:title="Auto Rename Symbol"
+            android:summary="Automatically rename all matching variable references within the same scope"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false" />
 
     </PreferenceCategory>
 

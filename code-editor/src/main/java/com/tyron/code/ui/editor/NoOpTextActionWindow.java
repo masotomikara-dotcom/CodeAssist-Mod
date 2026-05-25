@@ -13,9 +13,4 @@ public class NoOpTextActionWindow extends EditorTextActionWindow {
     public NoOpTextActionWindow(CodeEditor editor) {
         super(editor);
     }
-
-    @Override
-    public void show() {
-        // do nothing
-    }
 }

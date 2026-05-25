@@ -62,7 +62,7 @@ public class WizardTemplateAdapter extends RecyclerView.Adapter<WizardTemplateAd
         });
         mItems.clear();
         mItems.addAll(newItems);
-        diffResult.dispatchUpdatesTo(this);
+        diffResult.dispatchUpdatesTo(diffResult);
     }
 
     @NonNull
@@ -107,13 +107,23 @@ public class WizardTemplateAdapter extends RecyclerView.Adapter<WizardTemplateAd
         private void bind(WizardTemplate template) {
             name.setText(template.getName());
 
-            File iconFile = new File(template.getPath(), "icon.png");
-            if (iconFile.exists()) {
-                icon.setImageURI(Uri.fromFile(iconFile));
+            if ("import_project".equals(template.getId())) {
+                icon.setImageResource(R.drawable.ic_import_project);
                 icon.setShapeAppearanceModel(icon.getShapeAppearanceModel()
                         .toBuilder()
                         .setAllCorners(CornerFamily.ROUNDED, AndroidUtilities.dp(8))
                         .build());
+            } else {
+                File iconFile = new File(template.getPath(), "icon.png");
+                if (iconFile.exists()) {
+                    icon.setImageURI(Uri.fromFile(iconFile));
+                    icon.setShapeAppearanceModel(icon.getShapeAppearanceModel()
+                            .toBuilder()
+                            .setAllCorners(CornerFamily.ROUNDED, AndroidUtilities.dp(8))
+                            .build());
+                } else {
+                    icon.setImageResource(android.R.drawable.ic_menu_gallery);
+                }
             }
         }
     }

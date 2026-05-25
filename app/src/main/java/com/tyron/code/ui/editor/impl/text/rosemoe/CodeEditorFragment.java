@@ -371,6 +371,81 @@ public class CodeEditorFragment extends Fragment implements Savable,
             }
             updateFile(event.getEditor().getText());
         });
+        mEditor.subscribeEvent(io.github.rosemoe.sora.event.SelectionChangeEvent.class, (event, unsubscribe) -> {
+            if (event.getCause() != io.github.rosemoe.sora.event.SelectionChangeEvent.CAUSE_TEXT_MODIFIED) {
+                return;
+            }
+
+            SharedPreferences prefs = ApplicationLoader.getDefaultPreferences();
+            boolean isSyncEnabled = prefs.getBoolean("rename_sync_enabled", false);
+
+            if (isSyncEnabled) {
+                int cursorIndex = mEditor.getCursor().getLeft();
+                CharSequence contents = mEditor.getText();
+                String currentWord = com.tyron.code.util.ProjectUtils.extractWordAt(contents, cursorIndex);
+
+                if (currentWord != null && !currentWord.isEmpty() && mCurrentFile != null) {
+                    com.tyron.completion.java.CompilerProvider provider = ProjectManager.getInstance().getCurrentProject().getCompilerProvider();
+                    com.tyron.completion.java.rewrite.RenameVariable renameRewrite = new com.tyron.completion.java.rewrite.RenameVariable(mCurrentFile.toPath(), cursorIndex, currentWord);
+                    
+                    java.util.Map<java.nio.file.Path, com.tyron.completion.model.TextEdit[]> allEdits = renameRewrite.rewrite(provider);
+                    if (allEdits != null && allEdits.containsKey(mCurrentFile.toPath())) {
+                        mEditor.applyTextEdits(allEdits.get(mCurrentFile.toPath()));
+                    }
+                }
+            }
+        });
+        mEditor.subscribeEvent(io.github.rosemoe.sora.event.SelectionChangeEvent.class, (event, unsubscribe) -> {
+            if (event.getCause() == io.github.rosemoe.sora.event.SelectionChangeEvent.CAUSE_TEXT_MODIFIED) {
+                return;
+            }
+            
+            int cursorIndex = mEditor.getCursor().getLeft();
+            CharSequence text = mEditor.getText();
+            if (cursorIndex <= 0 || cursorIndex > text.length()) {
+                return;
+            }
+
+            char charBefore = text.charAt(cursorIndex - 1);
+            int matchingBraceIndex = -1;
+
+            if (charBefore == '}') {
+                int braceCount = 0;
+                for (int i = cursorIndex - 1; i >= 0; i--) {
+                    char c = text.charAt(i);
+                    if (c == '}') braceCount++;
+                    else if (c == '{') braceCount--;
+
+                    if (braceCount == 0) {
+                        matchingBraceIndex = i;
+                        break;
+                    }
+                }
+            } else if (charBefore == '{') {
+                int braceCount = 0;
+                for (int i = cursorIndex - 1; i < text.length(); i++) {
+                    char c = text.charAt(i);
+                    if (c == '{') braceCount++;
+                    else if (c == '}') braceCount--;
+
+                    if (braceCount == 0) {
+                        matchingBraceIndex = i;
+                        break;
+                    }
+                }
+            }
+
+            if (matchingBraceIndex != -1) {
+                int openLine = mEditor.getText().getLineAtCharIndex(matchingBraceIndex);
+                int openColumn = matchingBraceIndex - mEditor.getText().getLineStartCharIndex(openLine);
+                int closeLine = mEditor.getText().getLineAtCharIndex(cursorIndex - 1);
+                int closeColumn = (cursorIndex - 1) - mEditor.getText().getLineStartCharIndex(closeLine);
+                mEditor.setMatchedBrace(openLine, openColumn, closeLine, closeColumn);
+            } else {
+                mEditor.setMatchedBrace(-1, -1, -1, -1);
+            }
+        });
+
 
         LogViewModel logViewModel =
                 new ViewModelProvider(requireActivity()).get(LogViewModel.class);
