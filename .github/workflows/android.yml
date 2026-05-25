@@ -23,6 +23,14 @@ jobs:
         distribution: 'zulu'
         cache: gradle
 
+    # Thêm bước này để ép máy ảo cài đặt đúng SDK phù hợp với AGP 7.0.3
+    - name: Setup Android SDK Target
+      uses: android-actions/setup-android@v3
+      with:
+        api-level: 32
+        build-tools: 30.0.2
+        cmdline-tools: 7.0
+
     - name: Grant Execute Permission for Gradlew
       run: chmod +x gradlew
 
