@@ -15,6 +15,13 @@ import java.util.List;
 public class WizardFragment extends Fragment {
 
     private WizardTemplateAdapter mAdapter;
+
+    public interface OnProjectCreatedListener {
+        void onProjectCreated();
+    }
+    public void setOnProjectCreatedListener(OnProjectCreatedListener listener) {
+    }
+
     private void setupTemplates() {
         final List<WizardTemplate> templates = new ArrayList<>();
         
