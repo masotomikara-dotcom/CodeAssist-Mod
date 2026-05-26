@@ -646,7 +646,7 @@ public class WizardFragment extends Fragment {
                 templates = new ArrayList<>(templates);
             }
             
-            templates.add(new WizardTemplates("import_project", "Import Project", ""));
+            WizardTemplate importTemp = new WizardTemplate(); importTemp.setName("import_project"); templates.add(importTemp);
             List<WizardTemplate> finalTemplates = templates;
             if (getActivity() != null) {
                 getActivity().runOnUiThread(() -> {
