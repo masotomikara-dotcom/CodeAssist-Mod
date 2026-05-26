@@ -660,7 +660,7 @@ public class WizardFragment extends Fragment {
 
                     mAdapter.setOnItemClickListener((item, pos) -> {
                         mCurrentTemplate = item;
-                    if ("import_project", item.getId()) {
+                    if ("import_project".equals(item.getId())) {
                        openDirectoryPickerForImport();   
                     }
                     else {
