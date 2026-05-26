@@ -62,7 +62,7 @@ public class WizardTemplateAdapter extends RecyclerView.Adapter<WizardTemplateAd
         });
         mItems.clear();
         mItems.addAll(newItems);
-        diffResult.dispatchUpdatesTo(diffResult);
+        diffResult.dispatchUpdatesTo(this);
     }
 
     @NonNull
@@ -107,7 +107,7 @@ public class WizardTemplateAdapter extends RecyclerView.Adapter<WizardTemplateAd
         private void bind(WizardTemplate template) {
             name.setText(template.getName());
 
-            if ("import_project".equals(template.getId())) {
+            if ("import_project".equals(template.getName())) {
                 icon.setImageResource(R.drawable.ic_import_project);
                 icon.setShapeAppearanceModel(icon.getShapeAppearanceModel()
                         .toBuilder()
