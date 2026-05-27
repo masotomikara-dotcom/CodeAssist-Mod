@@ -6,9 +6,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+import com.tyron.code.ui.editor.impl.text.rosemoe.CodeEditorFragment;
+import java.io.File;
 
-public class LayoutTextEditorFragment extends Fragment {
+public class LayoutTextEditorFragment extends CodeEditorFragment {
+
+    public static LayoutTextEditorFragment newInstance(File file) {
+        LayoutTextEditorFragment fragment = new LayoutTextEditorFragment();
+        Bundle args = new Bundle();
+        if (file != null) {
+            args.putString("path", file.getAbsolutePath());
+        }
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
