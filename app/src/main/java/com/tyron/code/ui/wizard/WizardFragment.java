@@ -6,20 +6,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.amp.Fragment;
+import androidx.fragment.app.Fragment;
 import com.tyron.code.ui.wizard.adapter.WizardTemplateAdapter;
-import com.tyron.builder.project.api.Project;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WizardFragment extends androidx.fragment.app.Fragment {
+public class WizardFragment extends Fragment {
 
     private WizardTemplateAdapter mAdapter;
     private OnProjectCreatedListener mListener;
 
     public interface OnProjectCreatedListener {
-        void onProjectCreated(Project project);
+        void onProjectCreated(Object project);
     }
 
     public void setOnProjectCreatedListener(OnProjectCreatedListener listener) {
