@@ -14,14 +14,14 @@ import java.util.List;
 public class WizardFragment extends Fragment {
 
     private WizardTemplateAdapter mAdapter;
-    private OnProjectCreatedListener mListener;
 
     public interface OnProjectCreatedListener {
-        void onProjectCreated(Object project);
+        void onProjectCreated();
     }
 
     public void setOnProjectCreatedListener(OnProjectCreatedListener listener) {
-        this.mListener = listener;
+    }
+    public void setOnProjectCreatedListener(Object listener) {
     }
 
     private void setupTemplates() {
