@@ -35,344 +35,277 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 import com.google.android.material.transition.MaterialFade;
 import com.google.android.material.transition.MaterialFadeThrough;
 import com.google.android.material.transition.MaterialSharedAxis;
-import com.tyron.builder.project.Project;
+import com.tyron.code.Application;
 import com.tyron.code.R;
-import com.tyron.code.ui.file.FilePickerDialogFixed;
-import com.tyron.code.ui.main.MainFragment;
-import com.tyron.code.ui.project.adapter.ProjectManagerAdapter;
-import com.tyron.code.ui.settings.SettingsActivity;
-import com.tyron.code.ui.wizard.WizardFragment;
-import com.tyron.code.util.UiUtilsKt;
-import com.tyron.common.util.AndroidUtilities;
-import com.tyron.common.SharedPreferenceKeys;
-import com.tyron.completion.progress.ProgressManager;
-
-import org.apache.commons.io.FileUtils;
+import com.tyron.code.ui.main.MainActivity;
+import com.tyron.code.ui.project.adapter.ProjectAdapter;
+import com.tyron.code.util.AndroidUtilities;
+import com.tyron.code.util.ProjectUtils;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
+import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.Executors;
 
 public class ProjectManagerFragment extends Fragment {
 
-    public static final String TAG = ProjectManagerFragment.class.getSimpleName();
+    private final ActivityResultLauncher<String> requestPermissionLauncher =
+            registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
+                if (isGranted) {
+                    loadProjects();
+                } else {
+                    ExtendedFloatingActionButton actionButton = requireView().findViewById(R.id.create_project_button);
+                    actionButton.setEnabled(false);
+                }
+            });
 
-    private SharedPreferences mPreferences;
-    private RecyclerView mRecyclerView;
-    private ProjectManagerAdapter mAdapter;
-    private ExtendedFloatingActionButton mCreateProjectFab;
-    private boolean mShowDialogOnPermissionGrant;
-    private ActivityResultLauncher<String[]> mPermissionLauncher;
-    private final ActivityResultContracts.RequestMultiplePermissions mPermissionsContract =
-            new ActivityResultContracts.RequestMultiplePermissions();
+    private final ActivityResultLauncher<String[]> requestPermissionsLauncher =
+            registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(), result -> {
+                boolean allGranted = true;
+                for (Boolean isGranted : result.values()) {
+                    if (!isGranted) {
+                        allGranted = false;
+                        break;
+                    }
+                }
+                if (allGranted) {
+                    loadProjects();
+                } else {
+                    ExtendedFloatingActionButton actionButton = requireView().findViewById(R.id.create_project_button);
+                    actionButton.setEnabled(false);
+                }
+            });
 
-    private String mPreviousPath;
-
-    private FilePickerDialogFixed mDirectoryPickerDialog;
+    private ProjectAdapter adapter;
+    private SharedPreferences sharedPreferences;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setExitTransition(new MaterialSharedAxis(MaterialSharedAxis.X, false));
-        mPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext());
-        mPermissionLauncher = registerForActivityResult(mPermissionsContract, isGranted -> {
-            if (isGranted.containsValue(false)) {
-                new MaterialAlertDialogBuilder(requireContext())
-                        .setTitle(R.string.project_manager_permission_denied)
-                        .setMessage(R.string.project_manager_android11_notice)
-                        .setPositiveButton(R.string.project_manager_button_request_again, (d, which) -> {
-                            mShowDialogOnPermissionGrant = true;
-                            requestPermissions();
-                        })
-                        .setNegativeButton(R.string.project_manager_button_continue, (d, which) -> {
-                            mShowDialogOnPermissionGrant = false;
-                            setSavePath(Environment.getExternalStorageDirectory().getAbsolutePath());
-                        })
-                        .show();
-                setSavePath(Environment.getExternalStorageDirectory().getAbsolutePath());
-            } else {
-                if (mShowDialogOnPermissionGrant) {
-                    mShowDialogOnPermissionGrant = false;
-                    showDirectorySelectDialog();
-                }
-            }
-        });
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        MaterialToolbar toolbar = view.findViewById(R.id.toolbar);
-        toolbar.setTitle(R.string.app_name);
-
-
-        toolbar.inflateMenu(R.menu.project_list_fragment_menu);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            // can't change project path on android R
-            toolbar.getMenu().removeItem(R.id.projects_path);
-        }
-        toolbar.setOnMenuItemClickListener(item -> {
-            int id = item.getItemId();
-
-            if (id == R.id.projects_path) {
-                checkSavePath();
-                return true;
-            }
-
-            if (id == R.id.menu_settings) {
-                Intent intent = new Intent();
-                intent.setClass(requireActivity(), SettingsActivity.class);
-                startActivity(intent);
-                return true;
-            }
-
-            return true;
-        });
-
-
-        mCreateProjectFab = view.findViewById(R.id.create_project_fab);
-        mCreateProjectFab.setOnClickListener(v -> {
-            WizardFragment wizardFragment = new WizardFragment();
-            wizardFragment.setOnProjectCreatedListener(new com.tyron.code.ui.project.WizardFragment.OnProjectCreatedListener() {
-            	    @Override
-            	        public void onProjectCreated(com.tyron.builder.project.api.Project project) {
-            	        	        try {
-            	        	        	            java.lang.reflect.Method method = ProjectManagerFragment.this.getClass().getDeclaredMethod("openProject", Object.class);
-            	        	        	                        method.setAccessible(true);
-            	        	        	                                    method.invoke(ProjectManagerFragment.this, project);
-            	        	        	                                            } catch (Exception e) {
-            	        	        	                                            	            try {
-            	        	        	                                            	            	                for (java.lang.reflect.Method m : ProjectManagerFragment.this.getClass().getDeclaredMethods()) {
-            	        	        	                                            	            	                	                    if (m.getName().equals("openProject") && m.getParameterCount() == 1) {
-            	        	        	                                            	            	                	                    	                        m.setAccessible(true);
-            	        	        	                                            	            	                	                    	                                                m.invoke(ProjectManagerFragment.this, project);
-            	        	        	                                            	            	                	                    	                                                                        break;
-            	        	        	                                            	            	                	                    	                                                                                            }
-            	        	        	                                            	            	                	                    	                                                                                                            }
-            	        	        	                                            	            	                	                    	                                                                                                                        } catch (Exception ignored) {
-            	        	        	                                            	            	                	                    	                                                                                                                        	            }
-            	        	        	                                            	            	                	                    	                                                                                                                        	                    }
-            	        	        	                                            	            	                	                    	                                                                                                                        	                        }
-            	        	        	                                            	            	                	                    	                                                                                                                        	                        });
-            	        	        	                                            	            	                	                    	                                                                                                                        	                        getParentFragmentManager().beginTransaction()
-            	        	        	                                            	            	                	                    	                                                                                                                        	                                .replace(R.id.fragment_container, wizardFragment)
-            	        	        	                                            	            	                	                    	                                                                                                                        	                                        .addToBackStack(null)
-            	        	        	                                            	            	                	                    	                                                                                                                        	                                                .commit();
-            	        	        	                                            	            	                	                    	                                                                                                                        }
-            	        	        	                                            	            	                	                    }
-            	        	        	                                            	            	                }
-            	        	        	                                            	            }
-            	        	        	                                            }
-            	        	        }
-            	        }
-            });
-        UiUtilsKt.addSystemWindowInsetToMargin(mCreateProjectFab, false, false, false, true);
-
-        mAdapter = new ProjectManagerAdapter();
-        mAdapter.setOnProjectSelectedListener(this::openProject);
-        mAdapter.setOnProjectLongClickListener(this::inflateProjectMenus);
-        mRecyclerView = view.findViewById(R.id.projects_recycler);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
-        mRecyclerView.setAdapter(mAdapter);
-    }
-
-    private boolean inflateProjectMenus(View view, Project project) {
-        view.setOnCreateContextMenuListener((menu, v, menuInfo) -> {
-            menu.add(R.string.dialog_delete)
-                    .setOnMenuItemClickListener(item -> {
-                        String message = getString(R.string.dialog_confirm_delete,
-                                project.getRootFile().getName());
-                        new MaterialAlertDialogBuilder(requireContext())
-                                .setTitle(R.string.dialog_delete)
-                                .setMessage(message)
-                                .setPositiveButton(android.R.string.yes,
-                                        (d, which) -> deleteProject(project))
-                                .setNegativeButton(android.R.string.no, null)
-                                .show();
-                        return true;
-                    });
-        });
-        view.showContextMenu();
-        return true;
-    }
-
-    private void deleteProject(Project project) {
-        Executors.newSingleThreadExecutor().execute(() -> {
-            try {
-                FileUtils.forceDelete(project.getRootFile());
-                if (getActivity() != null) {
-                    requireActivity().runOnUiThread(() -> {
-                        AndroidUtilities.showSimpleAlert(
-                                requireContext(),
-                                getString(R.string.success),
-                                getString(R.string.delete_success));
-                        loadProjects();
-                    });
-                }
-            } catch (IOException e) {
-                if (getActivity() != null) {
-                    requireActivity().runOnUiThread(() ->
-                            AndroidUtilities.showSimpleAlert(requireContext(),
-                                    getString(R.string.error),
-                                    e.getMessage()));
-                }
-            }
-        });
+        setEnterTransition(new MaterialFadeThrough());
+        setExitTransition(new MaterialFadeThrough());
     }
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.project_manager_fragment, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext());
+
+        MaterialToolbar toolbar = view.findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.app_name);
+
+        RecyclerView recyclerView = view.findViewById(R.id.projects_recycler);
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        adapter = new ProjectAdapter();
+        adapter.setOnItemClickListener(new ProjectAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(File file) {
+                try {
+                    Object project = ProjectUtils.getProjectFromDirectory(file);
+                    if (project != null) {
+                        openProject(project);
+                    }
+                } catch (Exception ignored) {
+                }
+            }
+
+            @Override
+            public void onItemLongClick(File file) {
+                showMenuDialog(file);
+            }
+        });
+        recyclerView.setAdapter(adapter);
+
+        ExtendedFloatingActionButton actionButton = view.findViewById(R.id.create_project_button);
+        actionButton.setOnClickListener(v -> {
+            WizardFragment wizardFragment = new WizardFragment();
+            wizardFragment.setOnProjectCreatedListener(project -> {
+                try {
+                    java.lang.reflect.Method openProjectMethod = ProjectManagerFragment.this.getClass().getDeclaredMethod("openProject", project.getClass());
+                    openProjectMethod.setAccessible(true);
+                    openProjectMethod.invoke(ProjectManagerFragment.this, project);
+                } catch (Exception e) {
+                    try {
+                        for (java.lang.reflect.Method method : ProjectManagerFragment.this.getClass().getDeclaredMethods()) {
+                            if (method.getName().equals("openProject") && method.getParameterCount() == 1) {
+                                method.setAccessible(true);
+                                method.invoke(ProjectManagerFragment.this, project);
+                                break;
+                            }
+                        }
+                    } catch (Exception ignored) {
+                    }
+                }
+            });
+            getParentFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, wizardFragment)
+                    .addToBackStack(null)
+                    .commit();
+        });
+
+        NestedScrollView scrollView = view.findViewById(R.id.scroll_view);
+        scrollView.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener) (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
+            if (scrollY > oldScrollY + 12) {
+                actionButton.shrink();
+            }
+            if (scrollY < oldScrollY - 12) {
+                actionButton.extend();
+            }
+            if (scrollY == 0) {
+                actionButton.extend();
+            }
+        });
+
+        checkPermissions();
+    }
+
+    private void openProject(Object project) {
+        try {
+            java.lang.reflect.Method getIdMethod = project.getClass().getMethod("getId");
+            getIdMethod.setAccessible(true);
+            String projectId = (String) getIdMethod.invoke(project);
+            sharedPreferences.edit().putString("last_project_id", projectId).apply();
+        } catch (Exception ignored) {
+        }
+
+        Intent intent = new Intent(requireContext(), MainActivity.class);
+        startActivity(intent);
+        requireActivity().finish();
+    }
+
+    private void showMenuDialog(File file) {
+        String[] items = new String[]{
+                getString(R.string.delete)
+        };
+        new MaterialAlertDialogBuilder(requireContext())
+                .setTitle(file.getName())
+                .setItems(items, (dialog, which) -> {
+                    if (which == 0) {
+                        showDeleteDialog(file);
+                    }
+                })
+                .show();
+    }
+
+    private void showDeleteDialog(File file) {
+        new MaterialAlertDialogBuilder(requireContext())
+                .setTitle(R.string.delete_project_title)
+                .setMessage(getString(R.string.delete_project_message, file.getName()))
+                .setPositiveButton(R.string.delete, (dialog, which) -> {
+                    try {
+                        AndroidUtilities.deleteFile(file);
+                        loadProjects();
+                    } catch (IOException e) {
+                        new MaterialAlertDialogBuilder(requireContext())
+                                .setTitle(R.string.error)
+                                .setMessage(e.getMessage())
+                                .setPositiveButton(android.R.string.ok, null)
+                                .show();
+                    }
+                })
+                .setNegativeButton(android.R.string.cancel, null)
+                .show();
+    }
+
+    private void checkPermissions() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            if (Environment.isExternalStorageManager()) {
+                loadProjects();
+            } else {
+                showPermissionDialog();
+            }
+        } else {
+            String[] permissions = new String[]{
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+            };
+            boolean allGranted = true;
+            for (String permission : permissions) {
+                if (ContextCompat.checkSelfPermission(requireContext(), permission) != PackageManager.PERMISSION_GRANTED) {
+                    allGranted = false;
+                    break;
+                }
+            }
+            if (allGranted) {
+                loadProjects();
+            } else {
+                requestPermissionsLauncher.launch(permissions);
+            }
+        }
+    }
+
+    private void showPermissionDialog() {
+        new MaterialAlertDialogBuilder(requireContext())
+                .setTitle(R.string.permission_dialog_title)
+                .setMessage(R.string.permission_dialog_message)
+                .setPositiveButton(R.string.grant, (dialog, which) -> {
+                    Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
+                    startActivity(intent);
+                })
+                .setNegativeButton(android.R.string.cancel, (dialog, which) -> requireActivity().finish())
+                .setCancelable(false)
+                .show();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-
-        checkSavePath();
-    }
-
-    private void checkSavePath() {
-        String path = mPreferences.getString(SharedPreferenceKeys.PROJECT_SAVE_PATH, null);
-        if (path == null && Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
-            if (permissionsGranted()) {
-                showDirectorySelectDialog();
-            } else if (shouldShowRequestPermissionRationale()) {
-                if (shouldShowRequestPermissionRationale()) {
-                    new MaterialAlertDialogBuilder(requireContext())
-                            .setMessage(R.string.project_manager_permission_rationale)
-                            .setPositiveButton(R.string.project_manager_button_allow, (d, which) -> {
-                                mShowDialogOnPermissionGrant = true;
-                                requestPermissions();
-                            })
-                            .setNegativeButton(R.string.project_manager_button_use_internal, (d, which) ->
-                                    setSavePath(Environment.getExternalStorageDirectory().getAbsolutePath()))
-                            .setTitle(R.string.project_manager_rationale_title)
-                            .show();
-                }
-            } else {
-                requestPermissions();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            if (Environment.isExternalStorageManager()) {
+                loadProjects();
             }
-        } else {
-            loadProjects();
         }
-    }
-
-    private void setSavePath(String path) {
-        mPreferences.edit()
-                .putString(SharedPreferenceKeys.PROJECT_SAVE_PATH, path)
-                .apply();
-        loadProjects();
-    }
-
-    @VisibleForTesting
-    String getPreviousPath() {
-        return mPreviousPath;
-    }
-
-    @VisibleForTesting
-    FilePickerDialogFixed getDirectoryPickerDialog() {
-        return mDirectoryPickerDialog;
-    }
-
-    private void showDirectorySelectDialog() {
-        DialogProperties properties = new DialogProperties();
-        properties.selection_type = DialogConfigs.DIR_SELECT;
-        properties.selection_mode = DialogConfigs.SINGLE_MODE;
-        properties.root = Environment.getExternalStorageDirectory();
-        if (mPreviousPath != null && new File(mPreviousPath).exists()) {
-            properties.offset = new File(mPreviousPath);
-        }
-        FilePickerDialogFixed dialogFixed = new FilePickerDialogFixed(requireContext(), properties);
-        dialogFixed.setTitle(R.string.project_manager_save_location_title);
-        dialogFixed.setDialogSelectionListener(files -> {
-            setSavePath(files[0]);
-            loadProjects();
-        });
-        dialogFixed.setOnDismissListener(__ -> {
-            mPreviousPath = dialogFixed.getCurrentPath();
-            mDirectoryPickerDialog = null;
-        });
-        dialogFixed.show();
-
-        mDirectoryPickerDialog = dialogFixed;
-    }
-
-    private boolean permissionsGranted() {
-        return ContextCompat.checkSelfPermission(requireContext(),
-                Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
-                ContextCompat.checkSelfPermission(requireContext(),
-                        Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
-    }
-
-    private boolean shouldShowRequestPermissionRationale() {
-        return shouldShowRequestPermissionRationale(Manifest.permission.READ_EXTERNAL_STORAGE) ||
-                shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-    }
-
-    private void requestPermissions() {
-        mPermissionLauncher.launch(
-                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        Manifest.permission.READ_EXTERNAL_STORAGE});
-    }
-
-    private void openProject(Project project) {
-        MainFragment fragment = MainFragment.newInstance(project.getRootFile().getAbsolutePath());
-        getParentFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, fragment)
-                .addToBackStack(null)
-                .commit();
     }
 
     private void loadProjects() {
         toggleLoading(true);
-
-        Executors.newSingleThreadExecutor().execute(() -> {
-            String path;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                path = requireContext().getExternalFilesDir("Projects").getAbsolutePath();
-            } else {
-                path = mPreferences.getString(SharedPreferenceKeys.PROJECT_SAVE_PATH,
-                        requireContext().getExternalFilesDir("Projects").getAbsolutePath());
+        Application.getProjectManager().execute(() -> {
+            File root = new File(Environment.getExternalStorageDirectory(), "CodeAssist");
+            if (!root.exists()) {
+                if (!root.mkdirs()) {
+                    toggleLoading(false);
+                    return;
+                }
             }
-            File projectDir = new File(path);
-            File[] directories = projectDir.listFiles(File::isDirectory);
 
-            List<Project> projects = new ArrayList<>();
-            if (directories != null) {
-                Arrays.sort(directories, Comparator.comparingLong(File::lastModified));
-                for (File directory : directories) {
-                    File appModule = new File(directory, "app");
-                    if (appModule.exists()) {
-                        Project project = new Project(new File(directory.getAbsolutePath()
-                                .replaceAll("%20", " ")));
-                        // if (project.isValidProject()) {
-                        projects.add(project);
-                        // }
+            File[] files = root.listFiles();
+            if (files == null) {
+                toggleLoading(false);
+                return;
+            }
+
+            List<File> projectFiles = new ArrayList<>();
+            for (File file : files) {
+                if (file.isDirectory()) {
+                    File config = new File(file, ".codeassist");
+                    if (config.exists()) {
+                        projectFiles.add(file);
                     }
                 }
             }
 
-            if (getActivity() != null) {
-                requireActivity().runOnUiThread(() -> {
-                    toggleLoading(false);
-                    ProgressManager.getInstance().runLater(() -> {
-                        mAdapter.submitList(projects);
-                        toggleNullProject(projects);
-                    }, 300);
-                });
+            Collections.sort(projectFiles, (f1, f2) -> Long.compare(f2.lastModified(), f1.lastModified()));
+
+            if (getActivity() == null) {
+                return;
             }
+            requireActivity().runOnUiThread(() -> {
+                adapter.setFiles(projectFiles);
+                toggleLoading(false);
+                toggleEmptyView(projectFiles);
+            });
         });
     }
 
-    private void toggleNullProject(List<Project> projects) {
+    private void toggleEmptyView(List<File> projects) {
         ProgressManager.getInstance().runLater(() -> {
             if (getActivity() == null || isDetached()) {
                 return;
@@ -381,7 +314,6 @@ public class ProjectManagerFragment extends Fragment {
             if (view == null) {
                 return;
             }
-
             View recycler = view.findViewById(R.id.projects_recycler);
             View empty = view.findViewById(R.id.empty_projects);
 
@@ -423,3 +355,4 @@ public class ProjectManagerFragment extends Fragment {
         }, 300);
     }
 }
+
