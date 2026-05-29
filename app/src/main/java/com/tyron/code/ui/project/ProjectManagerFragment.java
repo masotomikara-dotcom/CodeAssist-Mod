@@ -137,12 +137,39 @@ public class ProjectManagerFragment extends Fragment {
         mCreateProjectFab = view.findViewById(R.id.create_project_fab);
         mCreateProjectFab.setOnClickListener(v -> {
             WizardFragment wizardFragment = new WizardFragment();
-            wizardFragment.setOnProjectCreatedListener(project -> this.openProject(project));
-            getParentFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, wizardFragment)
-                    .addToBackStack(null)
-                    .commit();
-        });
+            wizardFragment.setOnProjectCreatedListener(new com.tyron.code.ui.project.WizardFragment.OnProjectCreatedListener() {
+            	    @Override
+            	        public void onProjectCreated(com.tyron.builder.project.api.Project project) {
+            	        	        try {
+            	        	        	            java.lang.reflect.Method method = ProjectManagerFragment.this.getClass().getDeclaredMethod("openProject", Object.class);
+            	        	        	                        method.setAccessible(true);
+            	        	        	                                    method.invoke(ProjectManagerFragment.this, project);
+            	        	        	                                            } catch (Exception e) {
+            	        	        	                                            	            try {
+            	        	        	                                            	            	                for (java.lang.reflect.Method m : ProjectManagerFragment.this.getClass().getDeclaredMethods()) {
+            	        	        	                                            	            	                	                    if (m.getName().equals("openProject") && m.getParameterCount() == 1) {
+            	        	        	                                            	            	                	                    	                        m.setAccessible(true);
+            	        	        	                                            	            	                	                    	                                                m.invoke(ProjectManagerFragment.this, project);
+            	        	        	                                            	            	                	                    	                                                                        break;
+            	        	        	                                            	            	                	                    	                                                                                            }
+            	        	        	                                            	            	                	                    	                                                                                                            }
+            	        	        	                                            	            	                	                    	                                                                                                                        } catch (Exception ignored) {
+            	        	        	                                            	            	                	                    	                                                                                                                        	            }
+            	        	        	                                            	            	                	                    	                                                                                                                        	                    }
+            	        	        	                                            	            	                	                    	                                                                                                                        	                        }
+            	        	        	                                            	            	                	                    	                                                                                                                        	                        });
+            	        	        	                                            	            	                	                    	                                                                                                                        	                        getParentFragmentManager().beginTransaction()
+            	        	        	                                            	            	                	                    	                                                                                                                        	                                .replace(R.id.fragment_container, wizardFragment)
+            	        	        	                                            	            	                	                    	                                                                                                                        	                                        .addToBackStack(null)
+            	        	        	                                            	            	                	                    	                                                                                                                        	                                                .commit();
+            	        	        	                                            	            	                	                    	                                                                                                                        }
+            	        	        	                                            	            	                	                    }
+            	        	        	                                            	            	                }
+            	        	        	                                            	            }
+            	        	        	                                            }
+            	        	        }
+            	        }
+            });
         UiUtilsKt.addSystemWindowInsetToMargin(mCreateProjectFab, false, false, false, true);
 
         mAdapter = new ProjectManagerAdapter();
