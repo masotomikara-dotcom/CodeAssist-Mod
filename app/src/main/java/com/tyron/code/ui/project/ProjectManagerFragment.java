@@ -137,7 +137,7 @@ public class ProjectManagerFragment extends Fragment {
         mCreateProjectFab = view.findViewById(R.id.create_project_fab);
         mCreateProjectFab.setOnClickListener(v -> {
             WizardFragment wizardFragment = new WizardFragment();
-            wizardFragment.setOnProjectCreatedListener(project -> this.openProject((com.tyron.builder.project.api.Project) project));
+            wizardFragment.setOnProjectCreatedListener(project -> this.openProject((com.tyron.code.project.Project) project));
             getParentFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, wizardFragment)
                     .addToBackStack(null)
