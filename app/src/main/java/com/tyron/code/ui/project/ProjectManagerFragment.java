@@ -1,3 +1,4 @@
+
 package com.tyron.code.ui.project;
 
 import android.Manifest;
@@ -50,6 +51,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class ProjectManagerFragment extends Fragment {
+
+    public static final String TAG = "ProjectManagerFragment";
 
     private final ActivityResultLauncher<String> requestPermissionLauncher =
             registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
@@ -306,19 +309,18 @@ public class ProjectManagerFragment extends Fragment {
     }
 
     private void toggleEmptyView(List<File> projects) {
-        ProgressManager.getInstance().runLater(() -> {
-            if (getActivity() == null || isDetached()) {
-                return;
-            }
-            View view = getView();
-            if (view == null) {
-                return;
-            }
-            View recycler = view.findViewById(R.id.projects_recycler);
-            View empty = view.findViewById(R.id.empty_projects);
+        if (getActivity() == null || isDetached()) {
+            return;
+        }
+        View view = getView();
+        if (view == null) {
+            return;
+        }
+        View recycler = view.findViewById(R.id.projects_recycler);
+        View empty = view.findViewById(R.id.empty_projects);
 
-            TransitionManager.beginDelayedTransition(
-                    (ViewGroup) recycler.getParent(), new MaterialFade());
+        if (recycler != null && empty != null) {
+            TransitionManager.beginDelayedTransition((ViewGroup) recycler.getParent(), new MaterialFade());
             if (projects.size() == 0) {
                 recycler.setVisibility(View.GONE);
                 empty.setVisibility(View.VISIBLE);
@@ -326,25 +328,27 @@ public class ProjectManagerFragment extends Fragment {
                 recycler.setVisibility(View.VISIBLE);
                 empty.setVisibility(View.GONE);
             }
-        }, 300);
+        }
     }
 
     private void toggleLoading(boolean show) {
-        ProgressManager.getInstance().runLater(() -> {
-            if (getActivity() == null || isDetached()) {
-                return;
-            }
-            View view = getView();
-            if (view == null) {
-                return;
-            }
-            View recycler = view.findViewById(R.id.projects_recycler);
-            View empty = view.findViewById(R.id.empty_container);
-            View empty_project = view.findViewById(R.id.empty_projects);
-            empty_project.setVisibility(View.GONE);
+        if (getActivity() == null || isDetached()) {
+            return;
+        }
+        View view = getView();
+        if (view == null) {
+            return;
+        }
+        View recycler = view.findViewById(R.id.projects_recycler);
+        View empty = view.findViewById(R.id.empty_container);
+        View empty_project = view.findViewById(R.id.empty_projects);
 
-            TransitionManager.beginDelayedTransition((ViewGroup) recycler.getParent(),
-                                                     new MaterialFade());
+        if (empty_project != null) {
+            empty_project.setVisibility(View.GONE);
+        }
+
+        if (recycler != null && empty != null) {
+            TransitionManager.beginDelayedTransition((ViewGroup) recycler.getParent(), new MaterialFade());
             if (show) {
                 recycler.setVisibility(View.GONE);
                 empty.setVisibility(View.VISIBLE);
@@ -352,7 +356,6 @@ public class ProjectManagerFragment extends Fragment {
                 recycler.setVisibility(View.VISIBLE);
                 empty.setVisibility(View.GONE);
             }
-        }, 300);
+        }
     }
 }
-

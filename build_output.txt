@@ -1,0 +1,525 @@
+Starting a Gradle Daemon (subsequent builds will be faster)
+Type-safe project accessors is an incubating feature.
+WARNING:The specified Android SDK Build Tools version (30.0.2) is ignored, as it is below the minimum supported version (30.0.3) for Android Gradle Plugin 7.2.2.
+Android SDK Build Tools 30.0.3 will be used.
+To suppress this warning, remove "buildToolsVersion '30.0.2'" from your build.gradle file, as each version of the Android Gradle Plugin now has a default version of the build tools.
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
+> Task :android-stubs:compileJava UP-TO-DATE
+> Task :common:compileKotlin UP-TO-DATE
+> Task :common:compileJava UP-TO-DATE
+> Task :build-tools:jaxp:xml:compileJava UP-TO-DATE
+> Task :build-tools:kotlinc:compileKotlin UP-TO-DATE
+> Task :build-tools:kotlinc:compileJava UP-TO-DATE
+> Task :build-tools:javac:compileJava UP-TO-DATE
+> Task :build-tools:logging:compileJava UP-TO-DATE
+> Task :build-tools:jaxp:jaxp-internal:compileJava UP-TO-DATE
+> Task :build-tools:manifmerger:compileJava UP-TO-DATE
+> Task :common:processResources NO-SOURCE
+> Task :common:classes UP-TO-DATE
+> Task :common:inspectClassesForKotlinIC UP-TO-DATE
+> Task :common:jar UP-TO-DATE
+> Task :event-manager:compileJava UP-TO-DATE
+> Task :build-tools:project:compileKotlin UP-TO-DATE
+> Task :build-tools:project:compileJava UP-TO-DATE
+> Task :build-tools:xml-repository:compileJava UP-TO-DATE
+> Task :build-tools:xml-repository:processResources NO-SOURCE
+> Task :build-tools:xml-repository:classes UP-TO-DATE
+> Task :build-tools:xml-repository:jar UP-TO-DATE
+> Task :event-manager:processResources NO-SOURCE
+> Task :event-manager:classes UP-TO-DATE
+> Task :event-manager:jar UP-TO-DATE
+> Task :build-tools:javac:processResources NO-SOURCE
+> Task :build-tools:javac:classes UP-TO-DATE
+> Task :build-tools:javac:jar UP-TO-DATE
+> Task :language-api:compileJava UP-TO-DATE
+> Task :language-api:processResources NO-SOURCE
+> Task :language-api:classes UP-TO-DATE
+> Task :language-api:jar UP-TO-DATE
+> Task :build-tools:builder-base-annotations:compileJava UP-TO-DATE
+> Task :build-tools:builder-build-operations:compileJava UP-TO-DATE
+> Task :build-tools:builder-hashing:compileJava UP-TO-DATE
+> Task :build-tools:builder-base-services:compileJava UP-TO-DATE
+> Task :build-tools:builder-base-services-groovy:compileJava UP-TO-DATE
+> Task :build-tools:builder-base-services-groovy:processResources NO-SOURCE
+> Task :build-tools:builder-base-services-groovy:classes UP-TO-DATE
+> Task :build-tools:builder-base-services-groovy:jar UP-TO-DATE
+> Task :build-tools:builder-api:compileJava UP-TO-DATE
+> Task :build-tools:builder-files:compileJava UP-TO-DATE
+> Task :build-tools:builder-build-cache-base:compileJava UP-TO-DATE
+> Task :build-tools:builder-enterprise-operations:compileJava UP-TO-DATE
+> Task :build-tools:builder-enterprise-workers:compileJava UP-TO-DATE
+> Task :build-tools:builder-messaging:compileJava UP-TO-DATE
+> Task :build-tools:builder-file-temp:compileJava UP-TO-DATE
+> Task :build-tools:builder-native:compileJava UP-TO-DATE
+> Task :build-tools:builder-logging:compileJava UP-TO-DATE
+> Task :build-tools:builder-resources:compileJava UP-TO-DATE
+> Task :build-tools:builder-persistent-cache:compileJava UP-TO-DATE
+> Task :build-tools:builder-process-services:compileJava UP-TO-DATE
+> Task :build-tools:builder-core-api:compileJava UP-TO-DATE
+> Task :build-tools:snapshots:compileJava UP-TO-DATE
+> Task :build-tools:build-cache:compileJava UP-TO-DATE
+> Task :build-tools:builder-functional:compileJava UP-TO-DATE
+> Task :build-tools:builder-problems:compileJava UP-TO-DATE
+> Task :build-tools:groovy-compiler:compileJava UP-TO-DATE
+> Task :build-tools:builder-model-core:compileJava UP-TO-DATE
+> Task :build-tools:builder-execution:compileJava UP-TO-DATE
+> Task :build-tools:builder-jvm-services:compileJava UP-TO-DATE
+> Task :build-tools:builder-model-groovy:compileJava UP-TO-DATE
+> Task :build-tools:builder-normalization-java:compileJava UP-TO-DATE
+> Task :build-tools:builder-worker-processes:compileJava UP-TO-DATE
+> Task :build-tools:file-collections:compileJava UP-TO-DATE
+> Task :build-tools:file-watching:compileJava UP-TO-DATE
+> Task :build-tools:builder-core:compileJava UP-TO-DATE
+> Task :build-tools:builder-wrapper:compileJava UP-TO-DATE
+> Task :build-tools:builder-tooling-api:compileJava UP-TO-DATE
+> Task :build-tools:builder-build-events:compileJava UP-TO-DATE
+> Task :build-tools:android-common-resources:compileJava UP-TO-DATE
+> Task :javapoet:compileKotlin UP-TO-DATE
+> Task :javapoet:compileJava UP-TO-DATE
+> Task :build-tools:eclipse-standalone:compileJava UP-TO-DATE
+> Task :build-tools:viewbinding-lib:compileKotlin UP-TO-DATE
+> Task :build-tools:viewbinding-lib:compileJava UP-TO-DATE
+> Task :build-tools:build-logic:compileKotlin UP-TO-DATE
+> Task :build-tools:build-logic:compileJava UP-TO-DATE
+> Task :build-tools:builder-resources-http:compileJava UP-TO-DATE
+> Task :build-tools:builder-security:compileJava UP-TO-DATE
+> Task :build-tools:builder-dependency-management:compileJava UP-TO-DATE
+> Task :build-tools:builder-workers:compileJava UP-TO-DATE
+> Task :build-tools:builder-platform-base:compileJava UP-TO-DATE
+> Task :build-tools:builder-reporting:compileJava UP-TO-DATE
+> Task :build-tools:builder-diagnostics:compileJava UP-TO-DATE
+> Task :build-tools:builder-language-jvm:compileJava UP-TO-DATE
+> Task :build-tools:builder-platform-jvm:compileJava UP-TO-DATE
+> Task :build-tools:builder-java:compileJava UP-TO-DATE
+> Task :build-tools:builder-testing-base:compileJava UP-TO-DATE
+> Task :build-tools:builder-testing-jvm:compileJava UP-TO-DATE
+> Task :build-tools:builder-plugins:compileJava UP-TO-DATE
+> Task :build-tools:codeassist-builder-plugin:compileKotlin UP-TO-DATE
+> Task :build-tools:codeassist-builder-plugin:compileJava UP-TO-DATE
+> Task :build-tools:builder-launcher:compileJava UP-TO-DATE
+> Task :build-tools:builder-launcher:processResources UP-TO-DATE
+> Task :build-tools:builder-launcher:classes UP-TO-DATE
+> Task :build-tools:builder-launcher:jar UP-TO-DATE
+> Task :build-tools:builder-base-services:processResources NO-SOURCE
+> Task :build-tools:builder-base-services:classes UP-TO-DATE
+> Task :build-tools:builder-base-services:jar UP-TO-DATE
+> Task :build-tools:builder-core:processResources UP-TO-DATE
+> Task :build-tools:builder-core:classes UP-TO-DATE
+> Task :build-tools:builder-core:jar UP-TO-DATE
+> Task :build-tools:builder-core-api:processResources NO-SOURCE
+> Task :build-tools:builder-core-api:classes UP-TO-DATE
+> Task :build-tools:builder-core-api:jar UP-TO-DATE
+> Task :build-tools:builder-logging:processResources NO-SOURCE
+> Task :build-tools:builder-logging:classes UP-TO-DATE
+> Task :build-tools:builder-logging:jar UP-TO-DATE
+> Task :build-tools:builder-composite-builds:compileJava UP-TO-DATE
+> Task :build-tools:builder-tooling-api-builders:compileJava UP-TO-DATE
+> Task :build-tools:builder-tooling-api-builders:processResources UP-TO-DATE
+> Task :build-tools:builder-tooling-api-builders:classes UP-TO-DATE
+> Task :build-tools:builder-tooling-api-builders:jar UP-TO-DATE
+> Task :build-tools:builder-build-operations:processResources NO-SOURCE
+> Task :build-tools:builder-build-operations:classes UP-TO-DATE
+> Task :build-tools:builder-build-operations:jar UP-TO-DATE
+> Task :build-tools:builder-enterprise-workers:processResources NO-SOURCE
+> Task :build-tools:builder-enterprise-workers:classes UP-TO-DATE
+> Task :build-tools:builder-enterprise-workers:jar UP-TO-DATE
+> Task :build-tools:builder-plugin-use:compileJava UP-TO-DATE
+> Task :build-tools:builder-configuration-cache:compileKotlin UP-TO-DATE
+> Task :build-tools:builder-configuration-cache:compileJava UP-TO-DATE
+> Task :build-tools:builder-configuration-cache:processResources UP-TO-DATE
+> Task :build-tools:builder-configuration-cache:classes UP-TO-DATE
+> Task :build-tools:builder-configuration-cache:inspectClassesForKotlinIC UP-TO-DATE
+> Task :build-tools:builder-configuration-cache:jar UP-TO-DATE
+> Task :build-tools:builder-plugins:processResources UP-TO-DATE
+> Task :build-tools:builder-plugins:classes UP-TO-DATE
+> Task :build-tools:builder-plugins:jar UP-TO-DATE
+> Task :build-tools:builder-java:processResources UP-TO-DATE
+> Task :build-tools:builder-java:classes UP-TO-DATE
+> Task :build-tools:builder-java:jar UP-TO-DATE
+> Task :build-tools:builder-native:processResources NO-SOURCE
+> Task :build-tools:builder-native:classes UP-TO-DATE
+> Task :build-tools:builder-native:jar UP-TO-DATE
+> Task :build-tools:codeassist-builder-plugin:processResources UP-TO-DATE
+> Task :build-tools:codeassist-builder-plugin:classes UP-TO-DATE
+> Task :build-tools:codeassist-builder-plugin:inspectClassesForKotlinIC UP-TO-DATE
+> Task :build-tools:codeassist-builder-plugin:jar UP-TO-DATE
+> Task :build-tools:builder-ide:compileJava UP-TO-DATE
+> Task :build-tools:builder-ide:processResources UP-TO-DATE
+> Task :build-tools:builder-ide:classes UP-TO-DATE
+> Task :build-tools:builder-ide:jar UP-TO-DATE
+> Task :build-tools:builder-tooling-api:processResources NO-SOURCE
+> Task :build-tools:builder-tooling-api:classes UP-TO-DATE
+> Task :build-tools:builder-tooling-api:jar UP-TO-DATE
+> Task :build-tools:builder-api:processResources NO-SOURCE
+> Task :build-tools:builder-api:classes UP-TO-DATE
+> Task :build-tools:builder-api:jar UP-TO-DATE
+> Task :build-tools:build-logic:processResources NO-SOURCE
+> Task :build-tools:build-logic:classes UP-TO-DATE
+> Task :build-tools:build-logic:inspectClassesForKotlinIC UP-TO-DATE
+> Task :build-tools:build-logic:jar UP-TO-DATE
+> Task :build-tools:manifmerger:processResources NO-SOURCE
+> Task :build-tools:manifmerger:classes UP-TO-DATE
+> Task :build-tools:manifmerger:jar UP-TO-DATE
+> Task :build-tools:project:processResources NO-SOURCE
+> Task :build-tools:project:classes UP-TO-DATE
+> Task :build-tools:project:inspectClassesForKotlinIC UP-TO-DATE
+> Task :build-tools:project:jar UP-TO-DATE
+> Task :build-tools:logging:processResources NO-SOURCE
+> Task :build-tools:logging:classes UP-TO-DATE
+> Task :build-tools:logging:jar UP-TO-DATE
+> Task :build-tools:jaxp:jaxp-internal:processResources UP-TO-DATE
+> Task :build-tools:jaxp:jaxp-internal:classes UP-TO-DATE
+> Task :build-tools:jaxp:jaxp-internal:jar UP-TO-DATE
+> Task :build-tools:jaxp:xml:processResources UP-TO-DATE
+> Task :build-tools:jaxp:xml:classes UP-TO-DATE
+> Task :build-tools:jaxp:xml:jar UP-TO-DATE
+> Task :editor-api:compileJava UP-TO-DATE
+> Task :fileeditor-api:compileJava UP-TO-DATE
+> Task :actions-api:compileJava UP-TO-DATE
+> Task :actions-api:processResources NO-SOURCE
+> Task :actions-api:classes UP-TO-DATE
+> Task :actions-api:jar UP-TO-DATE
+> Task :editor-api:processResources NO-SOURCE
+> Task :editor-api:classes UP-TO-DATE
+> Task :editor-api:jar UP-TO-DATE
+> Task :fileeditor-api:processResources NO-SOURCE
+> Task :fileeditor-api:classes UP-TO-DATE
+> Task :fileeditor-api:jar UP-TO-DATE
+> Task :google-java-format:compileJava UP-TO-DATE
+> Task :google-java-format:processResources NO-SOURCE
+> Task :google-java-format:classes UP-TO-DATE
+> Task :google-java-format:jar UP-TO-DATE
+> Task :eclipse-formatter:compileJava UP-TO-DATE
+> Task :eclipse-formatter:processResources NO-SOURCE
+> Task :eclipse-formatter:classes UP-TO-DATE
+> Task :eclipse-formatter:jar UP-TO-DATE
+> Task :build-tools:builder-base-annotations:processResources NO-SOURCE
+> Task :build-tools:builder-base-annotations:classes UP-TO-DATE
+> Task :build-tools:builder-base-annotations:jar UP-TO-DATE
+> Task :build-tools:builder-hashing:processResources NO-SOURCE
+> Task :build-tools:builder-hashing:classes UP-TO-DATE
+> Task :build-tools:builder-hashing:jar UP-TO-DATE
+> Task :build-tools:builder-files:processResources NO-SOURCE
+> Task :build-tools:builder-files:classes UP-TO-DATE
+> Task :build-tools:builder-files:jar UP-TO-DATE
+> Task :build-tools:kotlinc:processResources UP-TO-DATE
+> Task :build-tools:kotlinc:classes UP-TO-DATE
+> Task :build-tools:kotlinc:inspectClassesForKotlinIC UP-TO-DATE
+> Task :build-tools:kotlinc:jar UP-TO-DATE
+> Task :code-editor:preBuild UP-TO-DATE
+> Task :code-editor:preDebugBuild UP-TO-DATE
+> Task :completion-api:preBuild UP-TO-DATE
+> Task :completion-api:preDebugBuild UP-TO-DATE
+> Task :completion-api:compileDebugAidl NO-SOURCE
+> Task :java-completion:preBuild UP-TO-DATE
+> Task :java-completion:preDebugBuild UP-TO-DATE
+> Task :kotlin-completion:preBuild UP-TO-DATE
+> Task :kotlin-completion:preDebugBuild UP-TO-DATE
+> Task :kotlin-completion:compileDebugAidl NO-SOURCE
+> Task :treeview:preBuild UP-TO-DATE
+> Task :treeview:preDebugBuild UP-TO-DATE
+> Task :treeview:compileDebugAidl NO-SOURCE
+> Task :java-completion:compileDebugAidl NO-SOURCE
+> Task :code-editor:compileDebugAidl NO-SOURCE
+> Task :dependency-resolver:preBuild UP-TO-DATE
+> Task :dependency-resolver:preDebugBuild UP-TO-DATE
+> Task :dependency-resolver:compileDebugAidl NO-SOURCE
+> Task :layout-preview:preBuild UP-TO-DATE
+> Task :layout-preview:preDebugBuild UP-TO-DATE
+> Task :xml-completion:preBuild UP-TO-DATE
+> Task :xml-completion:preDebugBuild UP-TO-DATE
+> Task :xml-completion:compileDebugAidl NO-SOURCE
+> Task :layout-preview:appcompat-widgets:preBuild UP-TO-DATE
+> Task :layout-preview:appcompat-widgets:preDebugBuild UP-TO-DATE
+> Task :layout-preview:proteus-core:preBuild UP-TO-DATE
+> Task :layout-preview:proteus-core:preDebugBuild UP-TO-DATE
+> Task :layout-preview:proteus-core:compileDebugAidl NO-SOURCE
+> Task :layout-preview:appcompat-widgets:compileDebugAidl NO-SOURCE
+> Task :layout-preview:cardview:preBuild UP-TO-DATE
+> Task :layout-preview:cardview:preDebugBuild UP-TO-DATE
+> Task :layout-preview:cardview:compileDebugAidl NO-SOURCE
+> Task :layout-preview:constraintlayout:preBuild UP-TO-DATE
+> Task :layout-preview:constraintlayout:preDebugBuild UP-TO-DATE
+> Task :layout-preview:constraintlayout:compileDebugAidl NO-SOURCE
+> Task :layout-preview:vector-parser:preBuild UP-TO-DATE
+> Task :layout-preview:vector-parser:preDebugBuild UP-TO-DATE
+> Task :layout-preview:vector-parser:compileDebugAidl NO-SOURCE
+> Task :layout-preview:compileDebugAidl NO-SOURCE
+> Task :terminalview:preBuild UP-TO-DATE
+> Task :terminalview:preDebugBuild UP-TO-DATE
+> Task :terminalview:compileDebugAidl NO-SOURCE
+> Task :build-tools:lint:preBuild UP-TO-DATE
+> Task :build-tools:lint:preDebugBuild UP-TO-DATE
+> Task :build-tools:lint:compileDebugAidl NO-SOURCE
+> Task :build-tools:viewbinding-inject:preBuild UP-TO-DATE
+> Task :build-tools:viewbinding-inject:preDebugBuild UP-TO-DATE
+> Task :build-tools:viewbinding-inject:compileDebugAidl NO-SOURCE
+> Task :app:compileDebugAidl NO-SOURCE
+> Task :code-editor:packageDebugRenderscript NO-SOURCE
+> Task :completion-api:packageDebugRenderscript NO-SOURCE
+> Task :dependency-resolver:packageDebugRenderscript NO-SOURCE
+> Task :java-completion:packageDebugRenderscript NO-SOURCE
+> Task :kotlin-completion:packageDebugRenderscript NO-SOURCE
+> Task :layout-preview:packageDebugRenderscript NO-SOURCE
+> Task :terminalview:packageDebugRenderscript NO-SOURCE
+> Task :treeview:packageDebugRenderscript NO-SOURCE
+> Task :xml-completion:packageDebugRenderscript NO-SOURCE
+> Task :build-tools:lint:packageDebugRenderscript NO-SOURCE
+> Task :build-tools:viewbinding-inject:packageDebugRenderscript NO-SOURCE
+> Task :layout-preview:proteus-core:packageDebugRenderscript NO-SOURCE
+> Task :app:compileDebugRenderscript NO-SOURCE
+> Task :app:generateDebugBuildConfig UP-TO-DATE
+> Task :code-editor:writeDebugAarMetadata UP-TO-DATE
+> Task :completion-api:writeDebugAarMetadata UP-TO-DATE
+> Task :dependency-resolver:writeDebugAarMetadata UP-TO-DATE
+> Task :java-completion:writeDebugAarMetadata UP-TO-DATE
+> Task :kotlin-completion:writeDebugAarMetadata UP-TO-DATE
+> Task :layout-preview:writeDebugAarMetadata UP-TO-DATE
+> Task :terminalview:writeDebugAarMetadata UP-TO-DATE
+> Task :treeview:writeDebugAarMetadata UP-TO-DATE
+> Task :xml-completion:writeDebugAarMetadata UP-TO-DATE
+> Task :build-tools:lint:writeDebugAarMetadata UP-TO-DATE
+> Task :build-tools:viewbinding-inject:writeDebugAarMetadata UP-TO-DATE
+> Task :layout-preview:appcompat-widgets:writeDebugAarMetadata UP-TO-DATE
+> Task :layout-preview:cardview:writeDebugAarMetadata UP-TO-DATE
+> Task :layout-preview:constraintlayout:writeDebugAarMetadata UP-TO-DATE
+> Task :layout-preview:proteus-core:writeDebugAarMetadata UP-TO-DATE
+> Task :layout-preview:vector-parser:writeDebugAarMetadata UP-TO-DATE
+
+> Task :app:checkDebugAarMetadata
+[Fatal Error] xml-apis-ext-1.3.04.pom:1:44: Content is not allowed in prolog.
+
+> Task :app:checkDebugAarMetadata UP-TO-DATE
+> Task :app:generateDebugResValues UP-TO-DATE
+> Task :app:generateDebugResources UP-TO-DATE
+> Task :code-editor:compileDebugRenderscript NO-SOURCE
+> Task :code-editor:generateDebugResValues UP-TO-DATE
+> Task :code-editor:generateDebugResources UP-TO-DATE
+> Task :code-editor:packageDebugResources UP-TO-DATE
+> Task :completion-api:compileDebugRenderscript NO-SOURCE
+> Task :completion-api:generateDebugResValues UP-TO-DATE
+> Task :completion-api:generateDebugResources UP-TO-DATE
+> Task :completion-api:packageDebugResources UP-TO-DATE
+> Task :dependency-resolver:compileDebugRenderscript NO-SOURCE
+> Task :dependency-resolver:generateDebugResValues UP-TO-DATE
+> Task :dependency-resolver:generateDebugResources UP-TO-DATE
+> Task :dependency-resolver:packageDebugResources UP-TO-DATE
+> Task :java-completion:compileDebugRenderscript NO-SOURCE
+> Task :java-completion:generateDebugResValues UP-TO-DATE
+> Task :java-completion:generateDebugResources UP-TO-DATE
+> Task :java-completion:packageDebugResources UP-TO-DATE
+> Task :kotlin-completion:compileDebugRenderscript NO-SOURCE
+> Task :kotlin-completion:generateDebugResValues UP-TO-DATE
+> Task :kotlin-completion:generateDebugResources UP-TO-DATE
+> Task :kotlin-completion:packageDebugResources UP-TO-DATE
+> Task :layout-preview:appcompat-widgets:packageDebugRenderscript NO-SOURCE
+> Task :layout-preview:cardview:packageDebugRenderscript NO-SOURCE
+> Task :layout-preview:constraintlayout:packageDebugRenderscript NO-SOURCE
+> Task :layout-preview:vector-parser:packageDebugRenderscript NO-SOURCE
+> Task :layout-preview:compileDebugRenderscript NO-SOURCE
+> Task :layout-preview:generateDebugResValues UP-TO-DATE
+> Task :layout-preview:generateDebugResources UP-TO-DATE
+> Task :layout-preview:packageDebugResources UP-TO-DATE
+> Task :terminalview:compileDebugRenderscript NO-SOURCE
+> Task :terminalview:generateDebugResValues UP-TO-DATE
+> Task :terminalview:generateDebugResources UP-TO-DATE
+> Task :terminalview:packageDebugResources UP-TO-DATE
+> Task :treeview:compileDebugRenderscript NO-SOURCE
+> Task :treeview:generateDebugResValues UP-TO-DATE
+> Task :treeview:generateDebugResources UP-TO-DATE
+> Task :treeview:packageDebugResources UP-TO-DATE
+> Task :xml-completion:compileDebugRenderscript NO-SOURCE
+> Task :xml-completion:generateDebugResValues UP-TO-DATE
+> Task :xml-completion:generateDebugResources UP-TO-DATE
+> Task :xml-completion:packageDebugResources UP-TO-DATE
+> Task :build-tools:lint:compileDebugRenderscript NO-SOURCE
+> Task :build-tools:lint:generateDebugResValues UP-TO-DATE
+> Task :build-tools:lint:generateDebugResources UP-TO-DATE
+> Task :build-tools:lint:packageDebugResources UP-TO-DATE
+> Task :build-tools:viewbinding-inject:compileDebugRenderscript NO-SOURCE
+> Task :build-tools:viewbinding-inject:generateDebugResValues UP-TO-DATE
+> Task :build-tools:viewbinding-inject:generateDebugResources UP-TO-DATE
+> Task :build-tools:viewbinding-inject:packageDebugResources UP-TO-DATE
+> Task :layout-preview:appcompat-widgets:compileDebugRenderscript NO-SOURCE
+> Task :layout-preview:appcompat-widgets:generateDebugResValues UP-TO-DATE
+> Task :layout-preview:appcompat-widgets:generateDebugResources UP-TO-DATE
+> Task :layout-preview:appcompat-widgets:packageDebugResources UP-TO-DATE
+> Task :layout-preview:cardview:compileDebugRenderscript NO-SOURCE
+> Task :layout-preview:cardview:generateDebugResValues UP-TO-DATE
+> Task :layout-preview:cardview:generateDebugResources UP-TO-DATE
+> Task :layout-preview:cardview:packageDebugResources UP-TO-DATE
+> Task :layout-preview:constraintlayout:compileDebugRenderscript NO-SOURCE
+> Task :layout-preview:constraintlayout:generateDebugResValues UP-TO-DATE
+> Task :layout-preview:constraintlayout:generateDebugResources UP-TO-DATE
+> Task :layout-preview:constraintlayout:packageDebugResources UP-TO-DATE
+> Task :layout-preview:proteus-core:compileDebugRenderscript NO-SOURCE
+> Task :layout-preview:proteus-core:generateDebugResValues UP-TO-DATE
+> Task :layout-preview:proteus-core:generateDebugResources UP-TO-DATE
+> Task :layout-preview:proteus-core:packageDebugResources UP-TO-DATE
+> Task :layout-preview:vector-parser:compileDebugRenderscript NO-SOURCE
+> Task :layout-preview:vector-parser:generateDebugResValues UP-TO-DATE
+> Task :layout-preview:vector-parser:generateDebugResources UP-TO-DATE
+> Task :layout-preview:vector-parser:packageDebugResources UP-TO-DATE
+> Task :app:mergeDebugResources UP-TO-DATE
+> Task :app:mapDebugSourceSetPaths UP-TO-DATE
+> Task :app:createDebugCompatibleScreenManifests UP-TO-DATE
+> Task :app:extractDeepLinksDebug UP-TO-DATE
+> Task :code-editor:extractDeepLinksDebug UP-TO-DATE
+> Task :code-editor:processDebugManifest UP-TO-DATE
+> Task :completion-api:extractDeepLinksDebug UP-TO-DATE
+> Task :completion-api:processDebugManifest UP-TO-DATE
+> Task :dependency-resolver:extractDeepLinksDebug UP-TO-DATE
+> Task :dependency-resolver:processDebugManifest UP-TO-DATE
+> Task :java-completion:extractDeepLinksDebug UP-TO-DATE
+> Task :java-completion:processDebugManifest UP-TO-DATE
+> Task :kotlin-completion:extractDeepLinksDebug UP-TO-DATE
+> Task :kotlin-completion:processDebugManifest UP-TO-DATE
+> Task :layout-preview:extractDeepLinksDebug UP-TO-DATE
+> Task :layout-preview:processDebugManifest UP-TO-DATE
+> Task :terminalview:extractDeepLinksDebug UP-TO-DATE
+> Task :terminalview:processDebugManifest UP-TO-DATE
+> Task :treeview:extractDeepLinksDebug UP-TO-DATE
+> Task :treeview:processDebugManifest UP-TO-DATE
+> Task :xml-completion:extractDeepLinksDebug UP-TO-DATE
+> Task :xml-completion:processDebugManifest UP-TO-DATE
+> Task :build-tools:lint:extractDeepLinksDebug UP-TO-DATE
+> Task :build-tools:lint:processDebugManifest UP-TO-DATE
+> Task :build-tools:viewbinding-inject:extractDeepLinksDebug UP-TO-DATE
+> Task :build-tools:viewbinding-inject:processDebugManifest UP-TO-DATE
+> Task :layout-preview:appcompat-widgets:extractDeepLinksDebug UP-TO-DATE
+> Task :layout-preview:appcompat-widgets:processDebugManifest UP-TO-DATE
+> Task :layout-preview:cardview:extractDeepLinksDebug UP-TO-DATE
+> Task :layout-preview:cardview:processDebugManifest UP-TO-DATE
+> Task :layout-preview:constraintlayout:extractDeepLinksDebug UP-TO-DATE
+> Task :layout-preview:constraintlayout:processDebugManifest UP-TO-DATE
+> Task :layout-preview:proteus-core:extractDeepLinksDebug UP-TO-DATE
+> Task :layout-preview:proteus-core:processDebugManifest UP-TO-DATE
+> Task :layout-preview:vector-parser:extractDeepLinksDebug UP-TO-DATE
+> Task :layout-preview:vector-parser:processDebugManifest UP-TO-DATE
+> Task :app:processDebugMainManifest UP-TO-DATE
+> Task :app:processDebugManifest UP-TO-DATE
+> Task :app:processDebugManifestForPackage UP-TO-DATE
+> Task :code-editor:compileDebugLibraryResources UP-TO-DATE
+> Task :code-editor:parseDebugLocalResources UP-TO-DATE
+> Task :completion-api:parseDebugLocalResources UP-TO-DATE
+> Task :completion-api:generateDebugRFile UP-TO-DATE
+> Task :java-completion:parseDebugLocalResources UP-TO-DATE
+> Task :kotlin-completion:parseDebugLocalResources UP-TO-DATE
+> Task :kotlin-completion:generateDebugRFile UP-TO-DATE
+> Task :treeview:parseDebugLocalResources UP-TO-DATE
+> Task :treeview:generateDebugRFile UP-TO-DATE
+> Task :java-completion:generateDebugRFile UP-TO-DATE
+
+> Task :code-editor:generateDebugRFile UP-TO-DATE
+[Fatal Error] xml-apis-ext-1.3.04.pom:1:44: Content is not allowed in prolog.
+
+> Task :completion-api:compileDebugLibraryResources UP-TO-DATE
+> Task :dependency-resolver:compileDebugLibraryResources UP-TO-DATE
+> Task :dependency-resolver:parseDebugLocalResources UP-TO-DATE
+> Task :dependency-resolver:generateDebugRFile UP-TO-DATE
+> Task :java-completion:compileDebugLibraryResources UP-TO-DATE
+> Task :kotlin-completion:compileDebugLibraryResources UP-TO-DATE
+> Task :layout-preview:compileDebugLibraryResources UP-TO-DATE
+> Task :layout-preview:parseDebugLocalResources UP-TO-DATE
+> Task :xml-completion:parseDebugLocalResources UP-TO-DATE
+> Task :xml-completion:generateDebugRFile UP-TO-DATE
+> Task :layout-preview:appcompat-widgets:parseDebugLocalResources UP-TO-DATE
+> Task :layout-preview:proteus-core:parseDebugLocalResources UP-TO-DATE
+> Task :layout-preview:proteus-core:generateDebugRFile UP-TO-DATE
+> Task :layout-preview:appcompat-widgets:generateDebugRFile UP-TO-DATE
+> Task :layout-preview:cardview:parseDebugLocalResources UP-TO-DATE
+> Task :layout-preview:cardview:generateDebugRFile UP-TO-DATE
+> Task :layout-preview:constraintlayout:parseDebugLocalResources UP-TO-DATE
+> Task :layout-preview:constraintlayout:generateDebugRFile UP-TO-DATE
+> Task :layout-preview:vector-parser:parseDebugLocalResources UP-TO-DATE
+> Task :layout-preview:vector-parser:generateDebugRFile UP-TO-DATE
+> Task :layout-preview:generateDebugRFile UP-TO-DATE
+> Task :terminalview:compileDebugLibraryResources UP-TO-DATE
+> Task :terminalview:parseDebugLocalResources UP-TO-DATE
+> Task :terminalview:generateDebugRFile UP-TO-DATE
+> Task :treeview:compileDebugLibraryResources UP-TO-DATE
+> Task :xml-completion:compileDebugLibraryResources UP-TO-DATE
+> Task :build-tools:lint:compileDebugLibraryResources UP-TO-DATE
+> Task :build-tools:lint:parseDebugLocalResources UP-TO-DATE
+> Task :build-tools:lint:generateDebugRFile UP-TO-DATE
+> Task :build-tools:viewbinding-inject:compileDebugLibraryResources UP-TO-DATE
+> Task :build-tools:viewbinding-inject:parseDebugLocalResources UP-TO-DATE
+> Task :build-tools:viewbinding-inject:generateDebugRFile UP-TO-DATE
+> Task :layout-preview:appcompat-widgets:compileDebugLibraryResources UP-TO-DATE
+> Task :layout-preview:cardview:compileDebugLibraryResources UP-TO-DATE
+> Task :layout-preview:constraintlayout:compileDebugLibraryResources UP-TO-DATE
+> Task :layout-preview:proteus-core:compileDebugLibraryResources UP-TO-DATE
+> Task :layout-preview:vector-parser:compileDebugLibraryResources UP-TO-DATE
+> Task :app:processDebugResources FAILED
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':app:processDebugResources'.
+> Could not resolve all files for configuration ':app:debugRuntimeClasspath'.
+   > Failed to transform crashx-v6.0.19.aar (com.github.TutorialsAndroid:crashx:v6.0.19) to match attributes {artifactType=android-compiled-dependencies-resources, org.gradle.category=library, org.gradle.libraryelements=jar, org.gradle.status=release, org.gradle.usage=java-runtime}.
+      > Execution failed for AarResourcesCompilerTransform: /root/.gradle/caches/transforms-3/2b75d3ea84d8425bae4679ee800fe050/transformed/jetified-crashx-v6.0.19.
+         > 'void com.android.builder.internal.aapt.v2.Aapt2DaemonImpl.<init>(java.lang.String, java.nio.file.Path, com.android.builder.internal.aapt.v2.Aapt2DaemonTimeouts, com.android.utils.ILogger)'
+   > Failed to transform editorkit-2.1.2.aar (com.blacksquircle.ui:editorkit:2.1.2) to match attributes {artifactType=android-compiled-dependencies-resources, org.gradle.category=library, org.gradle.libraryelements=jar, org.gradle.status=release, org.gradle.usage=java-runtime}.
+      > Execution failed for AarResourcesCompilerTransform: /root/.gradle/caches/transforms-3/cccab8306e7a469c518d0c89684bbc24/transformed/jetified-editorkit-2.1.2.
+         > 'void com.android.builder.internal.aapt.v2.Aapt2DaemonImpl.<init>(java.lang.String, java.nio.file.Path, com.android.builder.internal.aapt.v2.Aapt2DaemonTimeouts, com.android.utils.ILogger)'
+   > Failed to transform appcompat-1.4.2.aar (androidx.appcompat:appcompat:1.4.2) to match attributes {artifactType=android-compiled-dependencies-resources, org.gradle.category=library, org.gradle.dependency.bundling=external, org.gradle.libraryelements=aar, org.gradle.status=release, org.gradle.usage=java-runtime}.
+      > Execution failed for AarResourcesCompilerTransform: /root/.gradle/caches/transforms-3/5ca6d1c9856003c422022d159bf64625/transformed/appcompat-1.4.2.
+         > 'void com.android.builder.internal.aapt.v2.Aapt2DaemonImpl.<init>(java.lang.String, java.nio.file.Path, com.android.builder.internal.aapt.v2.Aapt2DaemonTimeouts, com.android.utils.ILogger)'
+   > Failed to transform core-1.7.0.aar (androidx.core:core:1.7.0) to match attributes {artifactType=android-compiled-dependencies-resources, org.gradle.category=library, org.gradle.dependency.bundling=external, org.gradle.libraryelements=aar, org.gradle.status=release, org.gradle.usage=java-runtime}.
+      > Execution failed for AarResourcesCompilerTransform: /root/.gradle/caches/transforms-3/0fb1e9f9ca0946ef0f649c73f8719463/transformed/core-1.7.0.
+         > 'void com.android.builder.internal.aapt.v2.Aapt2DaemonImpl.<init>(java.lang.String, java.nio.file.Path, com.android.builder.internal.aapt.v2.Aapt2DaemonTimeouts, com.android.utils.ILogger)'
+   > Failed to transform core-1.7.0.aar (androidx.core:core:1.7.0) to match attributes {artifactType=android-compiled-dependencies-resources, org.gradle.status=release}.
+      > Execution failed for AarResourcesCompilerTransform: /root/.gradle/caches/transforms-3/0fb1e9f9ca0946ef0f649c73f8719463/transformed/core-1.7.0.
+         > 'void com.android.builder.internal.aapt.v2.Aapt2DaemonImpl.<init>(java.lang.String, java.nio.file.Path, com.android.builder.internal.aapt.v2.Aapt2DaemonTimeouts, com.android.utils.ILogger)'
+   > Failed to transform core-1.7.0.aar (androidx.core:core:1.7.0) to match attributes {artifactType=android-compiled-dependencies-resources, org.gradle.status=release}.
+      > Execution failed for AarResourcesCompilerTransform: /root/.gradle/caches/transforms-3/0fb1e9f9ca0946ef0f649c73f8719463/transformed/core-1.7.0.
+         > 'void com.android.builder.internal.aapt.v2.Aapt2DaemonImpl.<init>(java.lang.String, java.nio.file.Path, com.android.builder.internal.aapt.v2.Aapt2DaemonTimeouts, com.android.utils.ILogger)'
+   > Failed to transform core-1.7.0.aar (androidx.core:core:1.7.0) to match attributes {artifactType=android-compiled-dependencies-resources, org.gradle.status=release}.
+      > Execution failed for AarResourcesCompilerTransform: /root/.gradle/caches/transforms-3/0fb1e9f9ca0946ef0f649c73f8719463/transformed/core-1.7.0.
+         > 'void com.android.builder.internal.aapt.v2.Aapt2DaemonImpl.<init>(java.lang.String, java.nio.file.Path, com.android.builder.internal.aapt.v2.Aapt2DaemonTimeouts, com.android.utils.ILogger)'
+   > Failed to transform core-1.7.0.aar (androidx.core:core:1.7.0) to match attributes {artifactType=android-compiled-dependencies-resources, org.gradle.status=release}.
+      > Execution failed for AarResourcesCompilerTransform: /root/.gradle/caches/transforms-3/0fb1e9f9ca0946ef0f649c73f8719463/transformed/core-1.7.0.
+         > 'void com.android.builder.internal.aapt.v2.Aapt2DaemonImpl.<init>(java.lang.String, java.nio.file.Path, com.android.builder.internal.aapt.v2.Aapt2DaemonTimeouts, com.android.utils.ILogger)'
+   > Failed to transform core-1.7.0.aar (androidx.core:core:1.7.0) to match attributes {artifactType=android-compiled-dependencies-resources, org.gradle.status=release}.
+      > Execution failed for AarResourcesCompilerTransform: /root/.gradle/caches/transforms-3/0fb1e9f9ca0946ef0f649c73f8719463/transformed/core-1.7.0.
+         > 'void com.android.builder.internal.aapt.v2.Aapt2DaemonImpl.<init>(java.lang.String, java.nio.file.Path, com.android.builder.internal.aapt.v2.Aapt2DaemonTimeouts, com.android.utils.ILogger)'
+   > Failed to transform core-1.7.0.aar (androidx.core:core:1.7.0) to match attributes {artifactType=android-compiled-dependencies-resources, org.gradle.status=release}.
+      > Execution failed for AarResourcesCompilerTransform: /root/.gradle/caches/transforms-3/0fb1e9f9ca0946ef0f649c73f8719463/transformed/core-1.7.0.
+         > 'void com.android.builder.internal.aapt.v2.Aapt2DaemonImpl.<init>(java.lang.String, java.nio.file.Path, com.android.builder.internal.aapt.v2.Aapt2DaemonTimeouts, com.android.utils.ILogger)'
+   > Failed to transform core-1.7.0.aar (androidx.core:core:1.7.0) to match attributes {artifactType=android-compiled-dependencies-resources, org.gradle.status=release}.
+      > Execution failed for AarResourcesCompilerTransform: /root/.gradle/caches/transforms-3/0fb1e9f9ca0946ef0f649c73f8719463/transformed/core-1.7.0.
+         > 'void com.android.builder.internal.aapt.v2.Aapt2DaemonImpl.<init>(java.lang.String, java.nio.file.Path, com.android.builder.internal.aapt.v2.Aapt2DaemonTimeouts, com.android.utils.ILogger)'
+   > Failed to transform core-1.7.0.aar (androidx.core:core:1.7.0) to match attributes {artifactType=android-compiled-dependencies-resources, org.gradle.status=release}.
+      > Execution failed for AarResourcesCompilerTransform: /root/.gradle/caches/transforms-3/0fb1e9f9ca0946ef0f649c73f8719463/transformed/core-1.7.0.
+         > 'void com.android.builder.internal.aapt.v2.Aapt2DaemonImpl.<init>(java.lang.String, java.nio.file.Path, com.android.builder.internal.aapt.v2.Aapt2DaemonTimeouts, com.android.utils.ILogger)'
+   > Failed to transform core-1.7.0.aar (androidx.core:core:1.7.0) to match attributes {artifactType=android-compiled-dependencies-resources, org.gradle.status=release}.
+      > Execution failed for AarResourcesCompilerTransform: /root/.gradle/caches/transforms-3/0fb1e9f9ca0946ef0f649c73f8719463/transformed/core-1.7.0.
+         > 'void com.android.builder.internal.aapt.v2.Aapt2DaemonImpl.<init>(java.lang.String, java.nio.file.Path, com.android.builder.internal.aapt.v2.Aapt2DaemonTimeouts, com.android.utils.ILogger)'
+   > Failed to transform core-1.7.0.aar (androidx.core:core:1.7.0) to match attributes {artifactType=android-compiled-dependencies-resources, org.gradle.status=release}.
+      > Execution failed for AarResourcesCompilerTransform: /root/.gradle/caches/transforms-3/0fb1e9f9ca0946ef0f649c73f8719463/transformed/core-1.7.0.
+         > 'void com.android.builder.internal.aapt.v2.Aapt2DaemonImpl.<init>(java.lang.String, java.nio.file.Path, com.android.builder.internal.aapt.v2.Aapt2DaemonTimeouts, com.android.utils.ILogger)'
+   > Failed to transform core-1.7.0.aar (androidx.core:core:1.7.0) to match attributes {artifactType=android-compiled-dependencies-resources, org.gradle.status=release}.
+      > Execution failed for AarResourcesCompilerTransform: /root/.gradle/caches/transforms-3/0fb1e9f9ca0946ef0f649c73f8719463/transformed/core-1.7.0.
+         > 'void com.android.builder.internal.aapt.v2.Aapt2DaemonImpl.<init>(java.lang.String, java.nio.file.Path, com.android.builder.internal.aapt.v2.Aapt2DaemonTimeouts, com.android.utils.ILogger)'
+   > Failed to transform core-1.7.0.aar (androidx.core:core:1.7.0) to match attributes {artifactType=android-compiled-dependencies-resources, org.gradle.status=release}.
+      > Execution failed for AarResourcesCompilerTransform: /root/.gradle/caches/transforms-3/0fb1e9f9ca0946ef0f649c73f8719463/transformed/core-1.7.0.
+         > 'void com.android.builder.internal.aapt.v2.Aapt2DaemonImpl.<init>(java.lang.String, java.nio.file.Path, com.android.builder.internal.aapt.v2.Aapt2DaemonTimeouts, com.android.utils.ILogger)'
+   > Failed to transform core-1.7.0.aar (androidx.core:core:1.7.0) to match attributes {artifactType=android-compiled-dependencies-resources, org.gradle.status=release}.
+      > Execution failed for AarResourcesCompilerTransform: /root/.gradle/caches/transforms-3/0fb1e9f9ca0946ef0f649c73f8719463/transformed/core-1.7.0.
+         > 'void com.android.builder.internal.aapt.v2.Aapt2DaemonImpl.<init>(java.lang.String, java.nio.file.Path, com.android.builder.internal.aapt.v2.Aapt2DaemonTimeouts, com.android.utils.ILogger)'
+   > Failed to transform filepicker-1.1.1.aar (com.github.angads25:filepicker:1.1.1) to match attributes {artifactType=android-compiled-dependencies-resources, org.gradle.category=library, org.gradle.libraryelements=jar, org.gradle.status=release, org.gradle.usage=java-runtime}.
+      > Execution failed for AarResourcesCompilerTransform: /root/.gradle/caches/transforms-3/b19c82f53789fa148ecb1426adb6ab07/transformed/jetified-filepicker-1.1.1.
+         > 'void com.android.builder.internal.aapt.v2.Aapt2DaemonImpl.<init>(java.lang.String, java.nio.file.Path, com.android.builder.internal.aapt.v2.Aapt2DaemonTimeouts, com.android.utils.ILogger)'
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights.
+
+* Get more help at https://help.gradle.org
+
+BUILD FAILED in 2m 53s
+278 actionable tasks: 1 executed, 277 up-to-date
